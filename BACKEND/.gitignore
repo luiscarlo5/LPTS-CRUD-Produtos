@@ -3,3 +3,10 @@ dist/
 .env
 .env.local
 *.log
+/src/generated/prisma
+/notes/
+
+# Uploaded product images (kept out of version control)
+/src/infra/upload/*
+!/src/infra/upload/*.ts
+!/src/infra/upload/.gitkeep
