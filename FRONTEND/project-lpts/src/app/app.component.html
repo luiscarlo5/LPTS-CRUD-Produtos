@@ -1,1 +1,63 @@
-<router-outlet />
+<div class="home" *ngIf="isHome">
+  <!-- From Uiverse.io by JkHuger -->
+  <div class="box-of-star1">
+    <p class="text-center text-3xl font-bold">Bem vindo ao meu CRUD</p>
+    <div class="star star-position1"></div>
+    <div class="star star-position2"></div>
+    <div class="star star-position3"></div>
+    <div class="star star-position4"></div>
+    <div class="star star-position5"></div>
+    <div class="star star-position6"></div>
+    <div class="star star-position7"></div>
+  </div>
+  <div class="box-of-star2">
+    <div class="star star-position1"></div>
+    <div class="star star-position2"></div>
+    <div class="star star-position3"></div>
+    <div class="star star-position4"></div>
+    <div class="star star-position5"></div>
+    <div class="star star-position6"></div>
+    <div class="star star-position7"></div>
+  </div>
+  <div class="box-of-star3">
+    <p class="text-center text-2xl font-bold">Cadastre, Liste, Atualize e Remova produtos</p>
+
+    <div class="star star-position1"></div>
+    <div class="star star-position2"></div>
+    <div class="star star-position3"></div>
+    <div class="star star-position4"></div>
+    <div class="star star-position5"></div>
+    <div class="star star-position6"></div>
+    <div class="star star-position7"></div>
+  </div>
+  <div class="box-of-star4">
+    <div class="star star-position1"></div>
+    <div class="star star-position2"></div>
+    <div class="star star-position3"></div>
+    <div class="star star-position4"></div>
+    <div class="star star-position5"></div>
+    <div class="star star-position6"></div>
+    <div class="star star-position7"></div>
+  </div>
+  <div data-js="astro" class="astronaut">
+    <div class="head"></div>
+    <div class="arm arm-left"></div>
+    <div class="arm arm-right"></div>
+    <div class="body">
+      <div class="panel"></div>
+    </div>
+    <div class="leg leg-left"></div>
+    <div class="leg leg-right"></div>
+    <div class="schoolbag"></div>
+  </div>
+
+  <div class="menu">
+    <button mat-stroked-button routerLink="/produtos/cadastro">Cadastrar</button>
+    <button mat-stroked-button routerLink="/produtos/atualizar">Atualizar</button>
+    <button mat-stroked-button routerLink="/produtos/deletar">Deletar</button>
+    <button mat-stroked-button routerLink="/produtos/consultar">Buscar</button>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>
