@@ -7,10 +7,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
+import { MensagemErroComponent } from '../../shared/mensagem-erro/mensagem-erro.component';
 
 @Component({
   selector: 'app-atualizar',
-  imports: [FormsModule, MatListModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
+  imports: [FormsModule, MatListModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MensagemErroComponent],
   templateUrl: './atualizar.component.html',
   styleUrl: './atualizar.component.scss'
 })
@@ -21,6 +22,7 @@ export class AtualizarComponent implements OnInit {
   edicao: Produto = {};
   imagemSelecionada?: File;
   previewUrl?: string;
+  mensagemErro?: string;
 
   constructor(private readonly service: ProdutoService) { }
 
@@ -49,9 +51,15 @@ export class AtualizarComponent implements OnInit {
     if (!this.selecionado?.id) {
       return;
     }
-    this.service.atualizar(this.selecionado.id, this.edicao, this.imagemSelecionada).subscribe(() => {
-      this.selecionar(undefined);
-      this.carregar();
+    this.mensagemErro = undefined;
+    this.service.atualizar(this.selecionado.id, this.edicao, this.imagemSelecionada).subscribe({
+      next: () => {
+        this.selecionar(undefined);
+        this.carregar();
+      },
+      error: (erro) => {
+        this.mensagemErro = erro.error?.message ?? 'Erro ao atualizar produto.';
+      },
     });
   }
 
@@ -64,5 +72,6 @@ export class AtualizarComponent implements OnInit {
     this.edicao = produto ? { ...produto } : {};
     this.imagemSelecionada = undefined;
     this.previewUrl = produto?.imagePath ? this.service.urlImagem(produto.imagePath) : undefined;
+    this.mensagemErro = undefined;
   }
 }
