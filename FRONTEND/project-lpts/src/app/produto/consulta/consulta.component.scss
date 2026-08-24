@@ -1,0 +1,48 @@
+.lista-produtos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+}
+
+.busca {
+  color: #f2f5fa;
+
+  ::ng-deep .mat-mdc-form-field {
+    --mdc-outlined-text-field-label-text-color: #cfe0f5;
+    --mdc-outlined-text-field-input-text-color: #f2f5fa;
+    --mdc-outlined-text-field-outline-color: rgba(255, 255, 255, 0.3);
+    --mdc-outlined-text-field-hover-outline-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.sem-produtos {
+  color: #ccc;
+}
+
+.example-card {
+  max-width: 400px;
+  background-color: #071427;
+  color: #f2f5fa;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.example-card mat-card-subtitle {
+  color: #7ac585;
+}
+
+.example-card .data-criacao {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #7d90ad;
+}
+
+.example-header-image {
+  background-color: #16345c;
+  color: #cfe0f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
