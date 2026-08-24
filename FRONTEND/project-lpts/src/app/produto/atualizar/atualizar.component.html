@@ -18,6 +18,8 @@
 
     @if (selecionado) {
       <div class="flex flex-col gap-2 ">
+        <app-mensagem-erro [mensagem]="mensagemErro"></app-mensagem-erro>
+
         <mat-form-field>
           <mat-label>Nome</mat-label>
           <input matInput [(ngModel)]="edicao.name" name="name">
