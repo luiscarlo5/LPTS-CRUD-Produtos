@@ -6,7 +6,7 @@ import { uploadDir } from "./src/infra/upload/multer.config";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app.enableCors();
+  app.enableCors({ origin: process.env.FRONTEND_ORIGIN ?? "http://localhost:4200" });
   app.useStaticAssets(uploadDir, { prefix: "/upload" });
   const port = process.env.NEST_PORT ?? 3001;
   await app.listen(port);
