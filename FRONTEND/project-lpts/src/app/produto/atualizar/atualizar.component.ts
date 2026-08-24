@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
 import { MensagemErroComponent } from '../../shared/mensagem-erro/mensagem-erro.component';
+import { NotificacaoService } from '../../shared/notificacao.service';
 
 @Component({
   selector: 'app-atualizar',
@@ -24,7 +25,10 @@ export class AtualizarComponent implements OnInit {
   previewUrl?: string;
   mensagemErro?: string;
 
-  constructor(private readonly service: ProdutoService) { }
+  constructor(
+    private readonly service: ProdutoService,
+    private readonly notificacao: NotificacaoService,
+  ) { }
 
   ngOnInit(): void {
     this.carregar();
@@ -56,6 +60,7 @@ export class AtualizarComponent implements OnInit {
       next: () => {
         this.selecionar(undefined);
         this.carregar();
+        this.notificacao.sucesso('Produto atualizado com sucesso!');
       },
       error: (erro) => {
         this.mensagemErro = erro.error?.message ?? 'Erro ao atualizar produto.';

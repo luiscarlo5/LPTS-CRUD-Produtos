@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Produto } from '../produto';
 import { ProdutoService } from '../produto.service';
 import { MensagemErroComponent } from '../../shared/mensagem-erro/mensagem-erro.component';
+import { NotificacaoService } from '../../shared/notificacao.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,7 +23,10 @@ export class CadastroComponent implements OnDestroy {
   previewUrl?: string;
   mensagemErro?: string;
 
-  constructor(private service: ProdutoService) { }
+  constructor(
+    private service: ProdutoService,
+    private notificacao: NotificacaoService,
+  ) { }
 
   onImagemSelecionada(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -48,6 +52,7 @@ export class CadastroComponent implements OnDestroy {
       next: () => {
         this.produto = Produto.newProduto();
         this.definirImagem(undefined);
+        this.notificacao.sucesso('Produto cadastrado com sucesso!');
       },
       error: (erro) => {
         this.mensagemErro = erro.error?.message ?? 'Erro ao salvar produto.';
