@@ -18,6 +18,8 @@ docker compose up -d --build
 - Backend (API): http://localhost:3001
 - Postgres: exposto em `localhost:5433` (útil para conectar com um client de banco)
 
+O schema do banco é aplicado automaticamente no start do container do backend (`prisma db push`, rodado antes da API subir) — não é necessário rodar nenhum comando manual à parte, mesmo num volume novo/zerado.
+
 Para acompanhar os logs: `docker compose logs -f`.
 Para derrubar: `docker compose down` (os dados do Postgres persistem no volume `desafio-lab-pgdata`; use `docker compose down -v` para apagá-los também).
 
@@ -98,6 +100,10 @@ As imagens de produto são recebidas via `multipart/form-data` (`FileInterceptor
 - `postgres` e `backend` compartilham uma rede **privada** (`backend-net`) — o backend acessa o banco pelo nome do serviço (`postgres:5432`), e nenhum outro container consegue alcançar o Postgres diretamente.
 - `frontend` fica fora dessa rede. Ele não precisa falar com o backend via rede interna do Docker: quem faz as chamadas HTTP à API é o navegador do usuário (aplicação client-side), através das portas publicadas no host — por isso o isolamento de rede entre frontend e backend não quebra a aplicação.
 - O CORS do backend é restrito à origem do frontend (`FRONTEND_ORIGIN`, configurável via `.env`), em vez de aceitar qualquer origem.
+
+### Schema do banco aplicado no start do container
+
+O `CMD` do `BACKEND/Dockerfile` roda `prisma db push` antes de iniciar a API (`npx prisma db push --accept-data-loss && npm run dev:nest`). Sem isso, um volume novo do Postgres sobe sem nenhuma tabela — `prisma generate` (rodado no build da imagem) só gera o client TypeScript, nunca aplica o schema no banco. Optou-se por `db push` em vez de migrations versionadas (`prisma migrate deploy`) para manter o mesmo fluxo já usado no restante do projeto, que não possui uma pasta `prisma/migrations/`.
 
 ### Frontend: componentes standalone + roteamento por URL
 
