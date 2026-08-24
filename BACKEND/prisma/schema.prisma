@@ -14,8 +14,8 @@ datasource db {
 
 model Product {
   id          String   @id
-  name        String
-  description String
+  name        String   @db.VarChar(40)
+  description String   @db.VarChar(100)
   price       Float
   imagePath   String?
   createdAt   DateTime @default(now())
