@@ -1,1 +1,27 @@
-<p>deletar works!</p>
+<div class="container w-full min-h-screen bg-black flex flex-col items-center px-4">
+  <div class="max-w-md rounded-sm w-full mx-auto mt-8 sm:mt-16 p-4 sm:p-8 bg-gray-700 rounded-2xl shadow-lg text-white">
+    <h2 class="text-2xl font-bold text-center mb-4">Deletar produto</h2>
+
+    @if (produtos.length === 0) {
+      <p class="text-center text-sm text-gray-300">Nenhum produto cadastrado.</p>
+    }
+
+    <div class="rounded-xs bg-white rounded-lg overflow-hidden">
+      <mat-selection-list [multiple]="false" (selectionChange)="onSelecaoAlterada($event)">
+        @for (produto of produtos; track produto.id) {
+          <mat-list-option [value]="produto">{{ produto.name }}</mat-list-option>
+        }
+      </mat-selection-list>
+    </div>
+
+    @if (selecionado) {
+      <div class="mt-4 flex flex-col gap-2">
+        <p>Excluir <strong>{{ selecionado.name }}</strong>?</p>
+        <div class="flex gap-2">
+          <button mat-flat-button color="warn" (click)="confirmarExclusao()">Excluir</button>
+          <button mat-stroked-button (click)="cancelar()">Cancelar</button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
