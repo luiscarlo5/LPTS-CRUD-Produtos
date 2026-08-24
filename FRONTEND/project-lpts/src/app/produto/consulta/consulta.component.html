@@ -1,1 +1,36 @@
-<p>consultar works!</p>
+
+<div class="container lista-produtos content-center flex flex-wrap justify-items-center justify-center container">
+
+<div class="w-screen busca px-4 pt-4 block">
+  <mat-form-field class="w-full max-w-md mx-auto block">
+    <mat-label>Buscar por nome</mat-label>
+    <input matInput [(ngModel)]="filtro" placeholder="Digite o nome do produto">
+  </mat-form-field>
+</div>
+
+  @for (produto of produtosFiltrados; track produto.id) {
+    <mat-card class="example-card max-h-140 w-100" appearance="outlined">
+
+      <mat-card-header>
+        <mat-card-title class="text-xs ">{{ produto.name }}</mat-card-title>
+        <mat-card-subtitle>preço: {{ produto.price | currency:'BRL' }}</mat-card-subtitle>
+      </mat-card-header>
+      <div class="bg-slate-600 justify-self-auto justify-center flex  ">
+      @if (produto.imagemUrl) {
+        <img class="mask-l-from-90% mask-r-from-90% h-50 w-auto  justify-center" [src]="produto.imagemUrl" [alt]="produto.name">
+      }
+      </div>
+
+      <mat-card-content>
+        <p class="">{{ produto.description }}</p>
+        <p class="data-criacao">Criado em {{ produto.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      </mat-card-content>
+
+    </mat-card>
+  } @empty {
+    <p class="sem-produtos">
+      {{ filtro ? 'Nenhum produto encontrado para "' + filtro + '".' : 'Nenhum produto cadastrado.' }}
+    </p>
+  }
+
+</div>
