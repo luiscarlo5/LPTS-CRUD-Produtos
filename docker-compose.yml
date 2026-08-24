@@ -1,0 +1,52 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: desafio-lab-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - desafio_lab_pgdata:/var/lib/postgresql/data
+    networks:
+      - backend-net
+
+  backend:
+    build:
+      context: ./BACKEND
+    container_name: desafio-lab-backend
+    restart: unless-stopped
+    environment:
+      NEST_PORT: ${NEST_PORT}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      FRONTEND_ORIGIN: http://localhost:${FRONTEND_PORT}
+    ports:
+      - "${NEST_PORT}:${NEST_PORT}"
+    depends_on:
+      - postgres
+    networks:
+      - backend-net
+
+  frontend:
+    build:
+      context: ./FRONTEND/project-lpts
+    container_name: desafio-lab-frontend
+    restart: unless-stopped
+    volumes:
+      - ./FRONTEND/project-lpts:/app
+      - /app/node_modules
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    depends_on:
+      - backend
+
+networks:
+  backend-net:
+    name: desafio-lab-backend-network
+
+volumes:
+  desafio_lab_pgdata:
+    name: desafio-lab-pgdata
