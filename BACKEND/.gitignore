@@ -10,3 +10,9 @@ dist/
 /src/infra/upload/*
 !/src/infra/upload/*.ts
 !/src/infra/upload/.gitkeep
+
+# AI coding tool config (local to each contributor, not project code)
+/.agents/
+/.claude/
+/.windsurf/
+skills-lock.json
