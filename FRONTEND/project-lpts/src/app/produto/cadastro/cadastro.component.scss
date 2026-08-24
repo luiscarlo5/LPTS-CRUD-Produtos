@@ -8,9 +8,9 @@ mat-form-field {
 
 //* From Uiverse.io by 1k24bytes */ 
 .container {
-  padding-top: 20px;
+  //padding-top: 20px;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: 
     /* Diagonal slices */
     radial-gradient(
@@ -33,7 +33,7 @@ mat-form-field {
       radial-gradient(
         circle at 50% 50%,
         #00ffcc 0% 1%,
-        #ff00cc 2% 3%,
+        #004cff 2% 3%,
         #3300ff 4% 5%,
         transparent 6%
       )
